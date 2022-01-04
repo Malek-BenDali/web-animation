@@ -78,11 +78,25 @@ function TextAnimation() {
 			},
 			'<'
 		)
+
+		gsap.set('.letter', { display: 'inline-block' })
+		gsap.from('.letter', {
+			y: '100%',
+			delay: 2,
+			stagger: 0.1,
+		})
 	}, [])
+	const HeaderText = 'Skincare.'
+	const lettersInHeader = HeaderText.split('')
+
 	return (
 		<>
 			<nav className="nav">
-				<h1 className="logo">Skincare.</h1>
+				<h1 className="overflow-hidden">
+					{lettersInHeader.map(caracter => (
+						<span className="letter">{caracter}</span>
+					))}
+				</h1>
 			</nav>
 			<div className="hero-section">
 				<img src={hero} className="hero-img" alt="aa" />
