@@ -1,13 +1,23 @@
 import React, { useEffect } from 'react'
-import gsap, { Power2 } from 'gsap'
+import gsap, { Power2, Elastic } from 'gsap'
 import './macroAnimation.css'
 
 function MacroAnimation() {
+	const tl = gsap.timeline({
+		defaults: { duration: 0.35, ease: Power2.easeOut },
+	})
 	useEffect(() => {
-		const tl = gsap.timeline({
-			defaults: { duration: 0.35, ease: Power2.easeOut },
-		})
 		gsap.set('.feather', { scale: 0, transformOrigin: 'center' })
+		gsap.set('.bell', {
+			transformOrigin: 'top center',
+		})
+		gsap.set('.ringer', {
+			transformOrigin: 'top center',
+		})
+		gsap.set('.wave', {
+			opacity: 0,
+			transformOrigin: 'bottom',
+		})
 	}, [])
 
 	const handleHomeClick = () => {
@@ -21,6 +31,35 @@ function MacroAnimation() {
 			{ y: -5, scale: 0 },
 			{ y: 20, scale: 1.5, stagger: 0.5 }
 		)
+	}
+	const handleNotificationClick = () => {
+		gsap.fromTo(
+			'.bell',
+			{ rotation: -5 },
+			{ rotation: 0, duration: 2, ease: Elastic.easeOut.config(5, 0.2) }
+		)
+		gsap.fromTo(
+			'.ringer',
+			{ rotation: -3, x: 0.5 },
+			{ rotation: 0, x: 0, duration: 2, ease: Elastic.easeOut.config(5, 0.2) }
+		)
+		gsap.fromTo(
+			'.wave',
+			{ scale: 0, opacity: 1 },
+			{ scale: 1, opacity: 0, duration: 1 }
+		)
+	}
+	const handleMessagesClick = () => {
+		tl.to('.messages-svg', { scale: 0.9 })
+		tl.to('.flap', { scale: -1, transformOrigin: 'top' }, '<50%')
+		tl.to('.messages-svg', { scale: 1 }, '<50%')
+		tl.fromTo(
+			'.note',
+			{ y: 0, opacity: 1 },
+			{ y: -40, opacity: 0, duration: 0.75 },
+			'<50%'
+		)
+		tl.to('.flap', { scale: 1, transformOrigin: 'top' }, '<50%')
 	}
 
 	return (
@@ -60,7 +99,7 @@ function MacroAnimation() {
 					</svg>
 					<h2 className="home-title">Home</h2>
 				</div>
-				<div className="notification">
+				<div className="notification" onClick={() => handleNotificationClick()}>
 					<svg
 						class="notification-svg"
 						width="40"
@@ -94,7 +133,7 @@ function MacroAnimation() {
 					</svg>
 					<h2 className="notification-title">Notifications</h2>
 				</div>
-				<div className="messages">
+				<div className="messages" onClick={() => handleMessagesClick()}>
 					<svg
 						class="messages-svg"
 						width="49"

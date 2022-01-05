@@ -19,3 +19,7 @@
 	align-items: center;
 	gap: 2em;
 }
+.notification-svg,
+.messages-svg {
+	overflow: visible;
+}
