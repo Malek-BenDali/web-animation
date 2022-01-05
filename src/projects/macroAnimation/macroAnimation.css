@@ -1,0 +1,21 @@
+.macroAnimation-container {
+	background: linear-gradient(260deg, #6a9eec, #65c0d3);
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.iconContainer {
+	background-color: white;
+	color: black;
+	padding: 5rem;
+	border-radius: 2em;
+}
+.home,
+.notification,
+.messages {
+	display: flex;
+	padding: 2rem;
+	align-items: center;
+	gap: 2em;
+}
