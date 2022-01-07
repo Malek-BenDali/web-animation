@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import gsap, { Power2, Elastic } from 'gsap'
 import './form.css'
 
 function Form() {
-	const [phone, setPhone] = useState('')
+	const [checked, setChecked] = useState(false)
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
+	const namePlaceHolderRef = useRef(null)
+	const emailPlaceHolderRef = useRef(null)
+	const tickMarkRef = useRef(null)
 
 	const start =
 		'M0 0.999512C0 0.999512 60.5 0.999512 150 0.999512C239.5 0.999512 300 0.999512 300 0.999512'
 	const end =
 		'M1 0.999512C1 0.999512 61.5 7.5 151 7.5C240.5 7.5 301 0.999512 301 0.999512'
 
-	const handleNameFocus = (ref, property) => {
+	const handleNameFocus = (ref, property, placeholder) => {
 		const tl = gsap.timeline({ defaults: { duration: 1 } })
 		if (!property) {
 			tl.fromTo(
@@ -25,8 +28,67 @@ function Form() {
 				{ attr: { d: start }, ease: Elastic.easeOut.config(3, 0.5) },
 				'<50%'
 			)
+			//placeholder shift
+			tl.to(
+				placeholder.current,
+				{
+					top: '-50%',
+					left: 0,
+					scale: 0.7,
+					duration: 0.5,
+					ease: Power2.easeOut,
+				},
+				'<'
+			)
 		}
 	}
+	const handleBlur = (property, placeholder) => {
+		const tl = gsap.timeline({ defaults: { duration: 1 } })
+		if (!property) {
+			//placeholder shift
+			tl.to(placeholder.current, {
+				top: '0%',
+				left: 0,
+				scale: 1,
+				duration: 0.5,
+				ease: Power2.easeOut,
+			})
+		}
+	}
+	const handleNameChange = (newName, line, placeHolder) => {
+		setName(newName)
+		if (newName.length > 2) {
+			colorize('#6391E8', line, placeHolder)
+		} else {
+			colorize('#FE8C99', line, placeHolder)
+		}
+	}
+	const handleEmailChange = (newEmail, line, placeHolder) => {
+		setEmail(newEmail)
+		if (newEmail.includes('@')) {
+			colorize('#6391E8', line, placeHolder)
+		} else {
+			colorize('#FE8C99', line, placeHolder)
+		}
+	}
+	const colorize = (color, line, placeHolder) => {
+		gsap.to(line, { stroke: color, duration: 0.7 })
+		gsap.to(placeHolder, { color, duration: 0.75 })
+	}
+	const handleCheckBox = () => {
+		setChecked(!checked)
+		const tl = gsap.timeline({
+			defaults: { duration: 0.5, ease: Power2.easeOut },
+		})
+		if (checked) {
+			tl.to('.checkbox-fill', { top: '0%' })
+		} else {
+			tl.to('.checkbox-fill', { top: '100%' })
+		}
+	}
+	useEffect(() => {
+		console.log(tickMarkRef.current)
+	}, [])
 
 	return (
 		<div className="formContainer">
@@ -46,11 +108,24 @@ function Form() {
 				{/* Right side of the form  */}
 				<div className="contact-right">
 					<div className="input-container">
-						<p className="placeholder">Your Name</p>
+						<p className="placeholder" ref={namePlaceHolderRef}>
+							Your Name
+						</p>
 						<input
-							onFocus={() => handleNameFocus('.name-line', name)}
+							onFocus={() =>
+								handleNameFocus('.name-line', name, namePlaceHolderRef)
+							}
+							onBlur={() => {
+								handleBlur(name, namePlaceHolderRef)
+							}}
 							value={name}
-							onChange={e => setName(e.target.value)}
+							onChange={e =>
+								handleNameChange(
+									e.target.value,
+									'.name-line',
+									namePlaceHolderRef.current
+								)
+							}
 							type="text"
 							name="name"
 							autoComplete="nope"
@@ -73,14 +148,27 @@ function Form() {
 						</svg>
 					</div>
 					<div className="input-container">
-						<p className="placeholder">Your Email</p>
+						<p className="placeholder email" ref={emailPlaceHolderRef}>
+							Your Email
+						</p>
 						<input
 							type="email"
 							name="email"
 							autoComplete="nope"
 							className="input-email input"
-							onFocus={() => handleNameFocus('.email-line', email)}
-							onChange={e => setEmail(e.target.value)}
+							onFocus={() =>
+								handleNameFocus('.email-line', email, emailPlaceHolderRef)
+							}
+							onBlur={() => {
+								handleBlur(email, emailPlaceHolderRef)
+							}}
+							onChange={e =>
+								handleEmailChange(
+									e.target.value,
+									'.email-line',
+									emailPlaceHolderRef.current
+								)
+							}
 						/>
 						<svg
 							className="line-svg"
@@ -123,7 +211,10 @@ function Form() {
 						</svg>
 					</div>
 					<div className="promo-container">
-						<div className="checkbox-container">
+						<div
+							className="checkbox-container"
+							onClick={() => handleCheckBox()}
+						>
 							<span className="checkmark"></span>
 							<div className="checkbox-fill"></div>
 							<input type="checkbox" className="checkbox" />
@@ -134,6 +225,7 @@ function Form() {
 								fill="none"
 								xmlns="http://www.w3.org/2000/svg"
 								className="tick-mark"
+								ref={tickMarkRef}
 							>
 								<path
 									className="elastic-line"
