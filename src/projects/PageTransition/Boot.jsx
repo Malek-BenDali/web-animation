@@ -1,12 +1,11 @@
 import React from 'react'
-import { burger, shoppingCart, handBag } from './images'
+import { bootImg, burger, shoppingCart } from './images'
 import { Link } from 'react-router-dom'
-import './Page.css'
 
-function Page() {
+function Test() {
 	return (
 		<div className="body">
-			<div className="handbag-body">
+			<div className="boot-body">
 				<nav className="nav">
 					<img src={burger} alt="burger" />
 					<Link className="logo" to="/">
@@ -16,21 +15,22 @@ function Page() {
 				</nav>
 				<section className="showcase">
 					<div className="img-container">
-						<img src={handBag} alt="" />
+						<img src={bootImg} alt="" />
 					</div>
 					<div className="showcase-text">
 						<h2 className="showcase-title">
-							Going places. With bags of beauty
+							These boots were made for walking.
 						</h2>
 						<h3 className="showcase-subtitle">
-							On everyone's wish list this season? Timeless presents they'll
-							treasure for ever, including our must-have Leisara hand bag
+							And that's just what they'll do. There's no denying what a great
+							pair of boots can do for your outfit. Treat your feet, explore our
+							range now.
 						</h3>
 						<Link to="product-page">
 							<button className="showcase-button">Explore</button>
 						</Link>
 					</div>
-					<Link to="/boot">
+					<Link to="/hat">
 						<svg
 							className="showcase-arrow"
 							width="26"
@@ -99,4 +99,4 @@ function Page() {
 	)
 }
 
-export default Page
+export default Test
