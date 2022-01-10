@@ -174,3 +174,77 @@ a {
 p span {
 	margin-left: 0.2rem;
 }
+
+.fifth-page {
+	min-height: 100vh;
+}
+.product-video {
+	position: absolute;
+	height: 100vh;
+	width: 100%;
+	object-fit: cover;
+	z-index: 1;
+}
+.product-info-container {
+	position: relative;
+	z-index: 2;
+	color: rgb(204, 204, 204);
+	font-weight: 400;
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+	justify-content: space-between;
+	padding: 0% 5%;
+}
+.right-info,
+.left-info {
+	width: 25%;
+}
+.right-info h3,
+.left-info h3 {
+	padding: 3rem 0rem;
+}
+.left-info span {
+	font-size: 1.5rem;
+}
+
+.sixth-page {
+	min-height: 100vh;
+	padding: 10% 15%;
+	display: flex;
+	justify-content: space-between;
+	position: relative;
+}
+.photo-title {
+	font-size: 2rem;
+}
+.photo-subtitle {
+	font-size: 2.5rem;
+}
+.portrait {
+	height: 70vh;
+}
+.phone-video {
+	position: absolute;
+	bottom: 0;
+	left: 40%;
+	z-index: 2;
+	transform: translate(-40%, 0%);
+}
+.phone-video img,
+.phone-video video {
+	position: absolute;
+	bottom: 0rem;
+}
+.phone-video video {
+	left: 1rem;
+	bottom: 1rem;
+	transform: scale(0.7);
+	border-radius: 2rem;
+}
+.phone-video img {
+	z-index: 2;
+	bottom: 0;
+	left: 0;
+	transform: scale(0.7);
+}

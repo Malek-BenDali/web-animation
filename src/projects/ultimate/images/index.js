@@ -14,6 +14,10 @@ import blueCloseup from './blue-closeup.png'
 import silverCloseup from './silver-closeup.png'
 import goldCloseup from './gold-closeup.png'
 import graphiteCloseup from './graphite-closeup.png'
+import outputTwo from './output-2.mp4'
+import portrait from './portrait.jpg'
+import iphoneFrame from './iphone-frame.png'
+import iphoneCameraVideo from './iphone-camera-video.mp4'
 
 export {
 	introAnimation,
@@ -32,4 +36,8 @@ export {
 	goldCloseup,
 	graphiteCloseup,
 	silverCloseup,
+	outputTwo,
+	portrait,
+	iphoneFrame,
+	iphoneCameraVideo,
 }

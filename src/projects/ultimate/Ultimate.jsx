@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ultimate.css'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
@@ -19,11 +19,29 @@ import {
 	silverCloseup,
 	goldCloseup,
 	graphiteCloseup,
+	outputTwo,
+	portrait,
+	iphoneFrame,
+	iphoneCameraVideo,
 } from './images'
 
 function Ultimate() {
 	gsap.registerPlugin(ScrollTrigger)
 	const [swatch, setSwatch] = useState('blue')
+
+	useEffect(() => {
+		const tlIntro = gsap.timeline({
+			scrollTrigger: {
+				trigger: '.first-page',
+				start: '0%',
+				end: '25%',
+				scrub: true,
+				markers: true,
+			},
+		})
+		tlIntro.fromTo('nav', { opacity: 1 }, { opacity: 0 })
+	}, [])
+
 	return (
 		<>
 			<nav className="nav-ultimate">
@@ -49,7 +67,7 @@ function Ultimate() {
 				></video>
 			</section>
 			<section className="second-page">
-				<video className="smoke-video" autoPlay muted src={smokeVideo} />
+				<video className="smoke-video" autoPlay muted loop src={smokeVideo} />
 				<div className="second-text">
 					<p className="text-container">
 						<span className="highlight">
@@ -129,6 +147,50 @@ function Ultimate() {
 					<img src={silverCloseup} className="silver phone" alt="a" />
 					<img src={goldCloseup} className="gold phone" alt="a" />
 					<img src={graphiteCloseup} className="graphite phone" alt="a" />
+				</div>
+			</section>
+			<section className="fifth-page">
+				<video className="product-video" src={outputTwo} muted autoPlay />
+				<div className="product-info-container">
+					<div className="left-info">
+						<h3>
+							up to <br /> <span>25% brighter outdoors</span>
+							<br />
+							for content that looks even more vivid in sunlight
+						</h3>
+						<h3>
+							<span>Even more display area</span>
+							<br />
+							thanks to smaller camera system.
+						</h3>
+					</div>
+					<div className="right-info">
+						<h3>
+							<span>Custom OLED technology</span>
+							<br />
+							pushes the display's incredible resolution and color right to the
+							edge
+						</h3>
+						<h3>
+							up to <span>1200 nits</span>peak brightness for your HDR photos
+							and videos
+						</h3>
+					</div>
+				</div>
+			</section>
+			<section className="sixth-page">
+				<div className="photo-description">
+					<h3 className="photo-title">
+						Customize <br /> your camera to
+					</h3>
+					<h4 className="photo-subtitle">lock in your look</h4>
+				</div>
+				<div className="portrait-container">
+					<img src={portrait} alt="s" className="portrait" />
+				</div>
+				<div className="phone-video">
+					<img src={iphoneFrame} alt="s" />
+					<video src={iphoneCameraVideo} autoPlay muted loop />
 				</div>
 			</section>
 		</>
