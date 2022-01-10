@@ -4,21 +4,23 @@ import MacroAnimation from './projects/macroAnimation/MacroAnimation'
 import Form from './projects/formAnimation/Form'
 import { Page, Boot, Hat } from './projects/PageTransition'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Ultimate from './projects/ultimate/Ultimate'
 
 function App() {
 	// return <Cookie />
 	// return <TextAnimation />
 	// return <MacroAnimation />
 	// return <Form />
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Page />} />
-				<Route path="/boot" element={<Boot />} />
-				<Route path="/hat" element={<Hat />} />
-			</Routes>
-		</BrowserRouter>
-	)
+	// return (
+	// 	<BrowserRouter>
+	// 		<Routes>
+	// 			<Route path="/" element={<Page />} />
+	// 			<Route path="/boot" element={<Boot />} />
+	// 			<Route path="/hat" element={<Hat />} />
+	// 		</Routes>
+	// 	</BrowserRouter>
+	// )
+	return <Ultimate />
 }
 
 export default App
