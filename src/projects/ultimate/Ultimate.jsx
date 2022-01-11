@@ -32,14 +32,59 @@ function Ultimate() {
 	useEffect(() => {
 		const tlIntro = gsap.timeline({
 			scrollTrigger: {
-				trigger: '.first-page',
-				start: '0%',
-				end: '25%',
+				trigger: '.second-page',
+				start: '-30%',
+				end: '40%',
 				scrub: true,
-				markers: true,
 			},
 		})
-		tlIntro.fromTo('nav', { opacity: 1 }, { opacity: 0 })
+		tlIntro.to('.highlight', { color: 'rgba(255,255,255,1)', stagger: 1 })
+		const tlRemove = gsap.timeline({
+			scrollTrigger: {
+				trigger: '.second-page',
+				start: '-10%',
+				end: '60%',
+				scrub: true,
+			},
+		})
+		tlRemove.to('.highlight', { color: 'rgba(255,255,255,0.6)', stagger: 1 })
+		//page 2
+		gsap.timeline({
+			scrollTrigger: {
+				trigger: '.first-page',
+				start: '0%',
+				end: '100%',
+				pin: true,
+				pinSpacing: false,
+			},
+		})
+		//page 3
+		const tlSplit = gsap.timeline({
+			scrollTrigger: {
+				trigger: '.third-page',
+				start: '-25%',
+				end: '30%',
+				markers: {
+					startColor: 'red',
+					endColor: 'red',
+				},
+				scrub: true,
+			},
+		})
+		tlSplit.fromTo('.large-phone', { x: '40%' }, { x: '20%' })
+		tlSplit.fromTo('.small-phone', { x: '-40%' }, { x: '-20%' }, '<')
+		tlSplit.fromTo(
+			'.product-text-left',
+			{ x: 50, opacity: 0 },
+			{ x: '-50%', opacity: 1 },
+			'<'
+		)
+		tlSplit.fromTo(
+			'.product-text-right',
+			{ x: 0, opacity: 0 },
+			{ x: '30%', opacity: 1 },
+			'<'
+		)
 	}, [])
 
 	return (
